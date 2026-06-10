@@ -24,6 +24,7 @@ Transformar un brief de negocio en un deck listo para editar o presentar, con na
 - `style-preset-catalog.md`
 - `visual-brief.md`
 - `image-prompts.json`
+- `data-viz-spec.json`
 - `style-preview-set.md`
 - `theme-spec.json`
 - `design-rules.md`
@@ -40,14 +41,18 @@ Transformar un brief de negocio en un deck listo para editar o presentar, con na
 - `brief.json` evoluciona por estados: `draft`, `enriched`, `ready`.
 - Solo un brief `ready` exige objetivo, audiencia y decision esperada.
 - Los campos marcados como opcionales no deben incluirse vacios solo para satisfacer un schema.
+- Las visualizaciones de datos no son imagenes editoriales: se especifican en `data-viz-spec.json` y no se generan con `@imagegen`.
 
 ## Flujo recomendado
 
 1. `orchestrator` clasifica la fase y hace preguntas de intake.
 2. `narrative` produce tesis, storyline y outline de slides.
 3. `design` produce 3 previews de direccion visual, define recursos visuales y fija el sistema elegido.
-4. `review` evalua narrativa, visual y diseno.
-5. `ppt-builder` arma el deck con los artefactos aprobados.
+4. `review` hace el gate previo de narrativa, visual y diseno.
+5. `ppt-builder` arma el deck y genera previews renderizados.
+6. `review` inspecciona la ejecucion real antes de aprobar la entrega final.
+
+Un deck no esta terminado solo porque el `.pptx` abre. Debe pasar revision visual sobre renders reales.
 
 ## Principios importados al dominio
 

@@ -110,6 +110,7 @@ Schema: `schemas/decks/theme-spec.schema.json`
 - `workflow-state.json` -> `schemas/decks/workflow-state.schema.json`
 - `agent-routing.json` -> `schemas/decks/agent-routing.schema.json`
 - `image-prompts.json` -> `schemas/decks/image-prompts.schema.json`
+- `data-viz-spec.json` -> `schemas/decks/data-viz-spec.schema.json`
 - `fix-list.json` -> `schemas/decks/fix-list.schema.json`
 - `deck-build-plan.json` -> `schemas/decks/deck-build-plan.schema.json`
 

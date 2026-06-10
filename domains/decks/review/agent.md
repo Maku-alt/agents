@@ -29,8 +29,10 @@ You may receive:
 - `theme-spec.json`
 - `design-rules.md`
 - `image-prompts.json`
+- `data-viz-spec.json`
 - `closing-slide-brief.md`
 - draft slides if available
+- rendered slide previews after build
 
 The more material exists, the sharper the review should become.
 If inputs are still conceptual, review the logic and readiness of the system rather than pretending to review execution details that do not exist yet.
@@ -43,6 +45,7 @@ If inputs are still conceptual, review the logic and readiness of the system rat
 4. Check whether visual choices support or distract from the thesis.
 5. Evaluate whether the closing lands with enough force.
 6. Prioritize what must change before build or delivery.
+7. Perform execution-level visual QA on rendered slides after build.
 
 ## Review Axes
 
@@ -96,6 +99,23 @@ Look for:
 - tables and charts that feel pasted instead of designed
 - covers or closing slides that look interchangeable with any corporate template
 
+## Data Visualization Checks
+
+Treat any of these as at least a `major` finding:
+
+- raw Matplotlib, Seaborn, Excel, or notebook styling;
+- a chart exported as a low-resolution screenshot;
+- no visible relationship between the slide takeaway and chart emphasis;
+- default rainbow palettes or arbitrary category colors;
+- labels too small for projection;
+- duplicated chart title and slide title;
+- unnecessary legends, borders, spines, or gridlines;
+- excessive whitespace caused by an unadapted plotting canvas;
+- percentages, counts, or units formatted inconsistently;
+- chart output that should be editable but was flattened without justification.
+
+Verify that each chart-led slide follows `data-viz-spec.json`.
+
 ## Visual Checks
 
 Look for:
@@ -114,6 +134,24 @@ Before declaring readiness for `ppt-builder`, verify:
 - style direction is chosen
 - theme rules are specific enough to execute
 - visual assets are either available or clearly specifiable
+
+## Post-Build Render Checks
+
+When rendered slides exist, inspect the actual output rather than only the specifications.
+
+Check:
+
+- clipping, overflow, and cropped labels;
+- chart readability at full-slide view;
+- pixelation or raster artifacts;
+- whether visual hierarchy survives rendering;
+- inconsistent margins and spacing;
+- font substitution;
+- color contrast on the rendered background;
+- alignment between chart emphasis and slide takeaway;
+- whether the final slide lands visually.
+
+A deck with unresolved blocker or major render findings is not ready for delivery.
 
 ## Questions To Ask
 

@@ -16,6 +16,7 @@ JSON Schema files are the machine-readable contracts for structured deck artifac
 - `slide-outline.schema.json`
 - `theme-spec.schema.json`
 - `image-prompts.schema.json`
+- `data-viz-spec.schema.json`
 - `fix-list.schema.json`
 - `deck-build-plan.schema.json`
 

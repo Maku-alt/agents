@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Deck Data Visualization Specification",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": [
+      "slide_number",
+      "insight",
+      "chart_type",
+      "source_data",
+      "category_order",
+      "scale",
+      "highlight",
+      "context_style",
+      "labels",
+      "number_format",
+      "rendering_method",
+      "editable_preferred",
+      "accessibility_notes"
+    ],
+    "properties": {
+      "slide_number": { "type": "integer", "minimum": 1 },
+      "insight": { "type": "string", "minLength": 1 },
+      "chart_type": {
+        "type": "string",
+        "enum": [
+          "bar",
+          "column",
+          "line",
+          "area",
+          "scatter",
+          "dot_plot",
+          "slope",
+          "waterfall",
+          "stacked_bar",
+          "heatmap",
+          "table",
+          "custom"
+        ]
+      },
+      "source_data": { "type": "string", "minLength": 1 },
+      "category_order": { "type": "string", "minLength": 1 },
+      "scale": { "type": "string", "minLength": 1 },
+      "highlight": { "type": "string", "minLength": 1 },
+      "context_style": { "type": "string", "minLength": 1 },
+      "labels": { "type": "string", "minLength": 1 },
+      "annotations": { "type": "array", "items": { "type": "string" } },
+      "number_format": { "type": "string", "minLength": 1 },
+      "rendering_method": {
+        "type": "string",
+        "enum": ["native_ppt", "editable_shapes", "svg", "png_fallback"]
+      },
+      "editable_preferred": { "type": "boolean" },
+      "accessibility_notes": { "type": "string" },
+      "fallback_reason": { "type": "string", "minLength": 1 }
+    },
+    "allOf": [
+      {
+        "if": {
+          "properties": {
+            "rendering_method": { "const": "png_fallback" }
+          },
+          "required": ["rendering_method"]
+        },
+        "then": {
+          "required": ["fallback_reason"]
+        }
+      }
+    ],
+    "additionalProperties": true
+  }
+}

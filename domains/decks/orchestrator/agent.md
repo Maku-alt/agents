@@ -87,6 +87,7 @@ Route to `review` when:
 - there is already a partial or final structure, design, or deck;
 - the user wants critique before building or before presenting;
 - the problem is quality, coherence, or over-density rather than missing creation work.
+- a built deck has rendered previews that require execution-level visual QA.
 
 Route to `ppt-builder` when:
 
@@ -94,6 +95,8 @@ Route to `ppt-builder` when:
 - the slide outline exists;
 - the style direction is chosen or sufficiently specified;
 - the remaining risk is execution, not concept.
+
+After `ppt-builder` produces rendered previews, route back to `review` before final delivery.
 
 ## Question Strategy
 

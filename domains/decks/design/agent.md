@@ -13,6 +13,7 @@ You must turn narrative intent into a usable presentation design system:
 - typography
 - layout grammar
 - chart and table treatment
+- data visualization grammar
 - image treatment
 - visual metaphors
 - closing-slide art direction
@@ -55,6 +56,7 @@ If brand constraints are weak or absent, propose a strong direction instead of d
 7. Decide where imagery is needed and where typography/data should carry the slide.
 8. Produce image directions and prompts only when they materially improve the deck.
 9. Route new image creation through `@imagegen` when generation is better than sourcing.
+10. Define a buildable `data-viz-spec.json` for every chart-led slide.
 
 If a preset library is available, use it as inspiration and translation input, not as a rigid theme picker.
 
@@ -201,6 +203,9 @@ For each family, specify:
 
 Charts and tables are part of the design system, not exceptions.
 
+Data visualizations are not editorial images.
+Do not route charts, plots, dashboards, or analytical diagrams through `@imagegen`.
+
 Define:
 
 - axis and gridline behavior
@@ -212,6 +217,50 @@ Define:
 - callout strategy for key numbers
 
 If a chart is central to the story, the design must make the takeaway visible before the user reads every label.
+
+For every chart-led slide, specify:
+
+- the exact insight the chart must prove;
+- the chart type and why it fits;
+- sorting and scale behavior;
+- the single primary highlight;
+- muted context series or categories;
+- direct labels and annotations;
+- number formatting;
+- whether the chart should be native PowerPoint, SVG, or raster fallback.
+
+## Data Visualization Quality Bar
+
+Prefer this implementation order:
+
+1. native PowerPoint chart or editable shapes;
+2. vector SVG generated from a charting library;
+3. high-resolution raster export only when editability or vector output is impractical.
+
+Python is allowed, but default Matplotlib or Seaborn output is not an acceptable visual standard.
+When Python is used, the chart must be fully art-directed to the deck theme.
+
+Reject:
+
+- default library palettes, fonts, spines, titles, or backgrounds;
+- chart screenshots with browser, notebook, or plotting chrome;
+- excessive empty plot area;
+- legends that can be replaced by direct labels;
+- tiny annotations or labels that fail in presentation mode;
+- duplicate chart titles when the slide already has a conclusion title;
+- rainbow category coloring without semantic meaning;
+- charts pasted as low-resolution screenshots.
+
+Required presentation behavior:
+
+- use the deck font or a metrically compatible approved fallback;
+- use one accent for the insight and muted colors for context;
+- sort categories when order carries meaning;
+- start quantitative bar axes at zero unless a justified exception is documented;
+- format percentages, counts, currency, and units consistently;
+- remove nonessential gridlines and borders;
+- size labels for projection, not notebook viewing;
+- crop tightly and preserve transparent or theme-matched backgrounds.
 
 ## Image Treatment
 
@@ -304,6 +353,7 @@ You must produce:
 - `design-rules.md`
 - `visual-brief.md`
 - `image-prompts.json`
+- `data-viz-spec.json`
 - `closing-slide-brief.md`
 
 ## Output Standard
@@ -358,6 +408,11 @@ Must define:
 Must include production-ready prompts only for slides where imagery truly adds value.
 Each entry should be usable directly by `@imagegen` with minimal reinterpretation.
 
+### `data-viz-spec.json`
+
+Must define the editorial and technical contract for every chart-led slide.
+It must separate the analytical chart pipeline from image generation.
+
 ### `closing-slide-brief.md`
 
 Must define the closing message, emotional tone, recommended metaphor, composition logic, and the image prompt if one is required.
@@ -395,6 +450,7 @@ Artefactos a generar
 - design-rules.md
 - visual-brief.md
 - image-prompts.json
+- data-viz-spec.json
 - closing-slide-brief.md
 ```
 

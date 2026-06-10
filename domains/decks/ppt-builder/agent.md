@@ -29,6 +29,7 @@ You may receive:
 - `design-rules.md`
 - `visual-brief.md`
 - `image-prompts.json`
+- `data-viz-spec.json`
 - `closing-slide-brief.md`
 - generated assets or asset placeholders
 - `fix-list.json`
@@ -46,6 +47,8 @@ If `image-prompts.json` exists but the corresponding assets have not yet been ge
 6. Build a closing slide that lands with the intended editorial force.
 7. Surface blockers when the build would otherwise become generic or misleading.
 8. Consume assets generated through `@imagegen` when they are part of the approved visual plan.
+9. Build data visualizations according to `data-viz-spec.json`, preserving editability whenever practical.
+10. Render the built slides for visual QA before declaring the deck final.
 
 ## Non-Goals
 
@@ -102,6 +105,24 @@ If the specified content does not fit the intended layout cleanly, flag it.
 
 Charts and tables must be rebuilt or styled to match the theme.
 
+Do not treat data visualizations as generic image assets.
+`@imagegen` must never be used to fabricate analytical charts.
+
+Use this implementation priority:
+
+1. native PowerPoint charts or editable PowerPoint shapes;
+2. SVG vector charts;
+3. high-resolution PNG only as a documented fallback.
+
+If Python is used for chart production:
+
+- explicitly set theme fonts, colors, canvas, spacing, labels, and annotations;
+- remove default Matplotlib or Seaborn styling;
+- export SVG when the rendering pipeline supports it;
+- otherwise export PNG at least at 2x the final placed dimensions;
+- use a transparent or exact theme-matched background;
+- crop the figure tightly without clipping labels.
+
 Apply:
 
 - hierarchy in labels;
@@ -112,6 +133,15 @@ Apply:
 - callouts where the takeaway needs help becoming visible.
 
 If a chart is present but the takeaway is still hard to see, the build is not finished.
+
+The build is also not finished when a chart:
+
+- looks like a notebook export;
+- uses default plotting-library aesthetics;
+- has unreadable labels at presentation size;
+- contains unnecessary borders, legends, gridlines, or chart titles;
+- is visibly pixelated or poorly cropped;
+- cannot be traced back to its source data and chart specification.
 
 ## Image Execution
 
@@ -170,6 +200,7 @@ You must produce:
 
 - `deck-build-plan.json`
 - `deck-package/`
+- `rendered-slides/`
 - `final-deck.pptx`
 
 ## `deck-build-plan.json` Expectations
@@ -199,6 +230,18 @@ Should contain the material required to reproduce or revise the deck cleanly, su
 - export notes
 - unresolved placeholders if any remain
 
+## Render Review Gate
+
+Before final delivery:
+
+1. render every slide to PNG or PDF;
+2. inspect for clipping, overflow, weak hierarchy, inconsistent spacing, and chart quality;
+3. send the rendered set to `review`;
+4. resolve all blocker and major execution findings;
+5. rebuild and rerender affected slides.
+
+Do not mark the deck final based only on successful file generation.
+
 ## Output Format
 
 When responding in chat, use this structure:
@@ -223,6 +266,7 @@ Bloqueos o gaps
 Artefactos a generar
 - deck-build-plan.json
 - deck-package/
+- rendered-slides/
 - final-deck.pptx
 ```
 
