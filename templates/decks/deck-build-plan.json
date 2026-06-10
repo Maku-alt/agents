@@ -1,0 +1,16 @@
+{
+  "build_readiness": "ready_to_build",
+  "open_gaps": [],
+  "theme_selected": "",
+  "closing_strategy": "",
+  "slides": [
+    {
+      "slide_number": 1,
+      "layout": "",
+      "content_sources": [],
+      "required_assets": [],
+      "build_notes": "",
+      "status": "pending"
+    }
+  ]
+}

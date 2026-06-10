@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Slide Outline",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": [
+      "slide_number",
+      "slide_kicker",
+      "slide_title",
+      "slide_takeaway",
+      "purpose",
+      "key_points",
+      "evidence_type",
+      "recommended_chart_or_visual",
+      "speaker_notes_optional"
+    ],
+    "properties": {
+      "slide_number": { "type": "integer", "minimum": 1 },
+      "slide_kicker": { "type": "string" },
+      "slide_title": { "type": "string" },
+      "slide_takeaway": { "type": "string" },
+      "purpose": { "type": "string" },
+      "key_points": { "type": "array", "items": { "type": "string" } },
+      "evidence_type": {
+        "type": "string",
+        "enum": ["fact", "interpretation", "recommendation"]
+      },
+      "recommended_chart_or_visual": { "type": "string" },
+      "speaker_notes_optional": { "type": "string" }
+    },
+    "additionalProperties": true
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "theme_name": "",
+  "tone": "",
+  "style_family": "",
+  "palette": {
+    "primary": "",
+    "secondary": "",
+    "accent": "",
+    "background": "",
+    "surface": "",
+    "text": "",
+    "muted_text": "",
+    "success_or_positive": "",
+    "risk_or_tension": ""
+  },
+  "typography": {
+    "title": "",
+    "body": "",
+    "labels": "",
+    "numeric": ""
+  },
+  "layout_system": "",
+  "signature_elements": [],
+  "title_style": "",
+  "chart_style": "",
+  "table_style": "",
+  "image_treatment": ""
+}

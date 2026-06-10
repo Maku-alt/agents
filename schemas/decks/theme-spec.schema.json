@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Theme Spec",
+  "type": "object",
+  "required": [
+    "theme_name",
+    "tone",
+    "style_family",
+    "palette",
+    "typography",
+    "layout_system",
+    "signature_elements",
+    "title_style",
+    "chart_style",
+    "table_style",
+    "image_treatment"
+  ],
+  "properties": {
+    "theme_name": { "type": "string" },
+    "tone": { "type": "string" },
+    "style_family": { "type": "string" },
+    "palette": {
+      "type": "object",
+      "properties": {
+        "primary": { "type": "string" },
+        "secondary": { "type": "string" },
+        "accent": { "type": "string" },
+        "background": { "type": "string" },
+        "surface": { "type": "string" },
+        "text": { "type": "string" },
+        "muted_text": { "type": "string" },
+        "success_or_positive": { "type": "string" },
+        "risk_or_tension": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "typography": {
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "body": { "type": "string" },
+        "labels": { "type": "string" },
+        "numeric": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "layout_system": { "type": "string" },
+    "signature_elements": { "type": "array", "items": { "type": "string" } },
+    "title_style": { "type": "string" },
+    "chart_style": { "type": "string" },
+    "table_style": { "type": "string" },
+    "image_treatment": { "type": "string" }
+  },
+  "additionalProperties": true
+}

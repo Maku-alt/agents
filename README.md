@@ -19,7 +19,6 @@ agents/
     decks/
       orchestrator/
       narrative/
-      visual/
       design/
       review/
       ppt-builder/
@@ -30,7 +29,7 @@ agents/
 
 ## Flujo del dominio decks
 
-`brief -> orchestrator -> narrative -> visual/design -> review -> ppt-builder`
+`brief -> orchestrator -> narrative -> design -> review -> ppt-builder`
 
 ## Reglas del dominio decks
 
@@ -38,3 +37,22 @@ agents/
 - Las preguntas deben ser minimas y orientadas a destrabar la siguiente salida.
 - Cada agente recibe inputs estructurados y devuelve outputs estructurados.
 - Ningun agente debe saltarse el contrato de salida.
+
+## Portabilidad
+
+Para reutilizar este dominio en otro repo:
+
+1. Copia `domains/decks/`.
+2. Copia `schemas/decks/` y `schemas/decks-artifacts.md`.
+3. Copia `templates/decks/`.
+4. Conserva la misma estructura relativa para no romper referencias.
+
+Minimo utilizable en otro repo:
+
+- `domains/decks/orchestrator/agent.md`
+- `domains/decks/narrative/agent.md`
+- `domains/decks/design/agent.md`
+- `domains/decks/review/agent.md`
+- `domains/decks/ppt-builder/agent.md`
+- `schemas/decks/`
+- `templates/decks/`
