@@ -17,8 +17,11 @@ Transformar un brief de negocio en un deck listo para editar o presentar, con na
 ## Artefactos canonicos
 
 - `brief.json`
+- `workflow-state.json`
+- `agent-routing.json`
 - `storyline.md`
 - `slide-outline.json`
+- `style-preset-catalog.md`
 - `visual-brief.md`
 - `image-prompts.json`
 - `style-preview-set.md`
@@ -28,6 +31,15 @@ Transformar un brief de negocio en un deck listo para editar o presentar, con na
 - `review-report.md`
 - `fix-list.json`
 - `deck-build-plan.json`
+
+## Contratos
+
+- Los artefactos JSON tienen schemas en `schemas/decks/`.
+- Los artefactos Markdown tienen contratos de secciones en `schemas/decks/markdown-contracts.md`.
+- `schemas/decks-artifacts.md` es el indice legible; los JSON Schema son la fuente de verdad ejecutable.
+- `brief.json` evoluciona por estados: `draft`, `enriched`, `ready`.
+- Solo un brief `ready` exige objetivo, audiencia y decision esperada.
+- Los campos marcados como opcionales no deben incluirse vacios solo para satisfacer un schema.
 
 ## Flujo recomendado
 
@@ -45,3 +57,14 @@ Transformar un brief de negocio en un deck listo para editar o presentar, con na
 - la slide final debe cerrar con intencion editorial, no como resumen tecnico;
 - la definicion de estilo debe hacerse con previews comparables, no solo con descripciones abstractas;
 - el deck debe sentirse intencional y distintivo, no como una plantilla corporativa generica.
+
+## Biblioteca de estilos
+
+El dominio puede apoyarse en una biblioteca de presets visuales para acelerar la fase de `style-discovery`.
+
+Uso recomendado:
+
+- usar los presets como puntos de partida, no como plantillas rigidas;
+- traducir cada preset a reglas de PPT: paleta, tipografia, layouts, tablas, charts y cierre;
+- evitar aplicar presets muy teatrales si la audiencia no lo tolera;
+- conservar siempre una opcion editorial segura, una opcion mas audaz y una wildcard defendible.

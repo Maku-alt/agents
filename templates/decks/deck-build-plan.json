@@ -1,16 +1,7 @@
 {
-  "build_readiness": "ready_to_build",
-  "open_gaps": [],
+  "build_readiness": "blocked",
+  "open_gaps": ["Complete the narrative and design artifacts before building."],
   "theme_selected": "",
   "closing_strategy": "",
-  "slides": [
-    {
-      "slide_number": 1,
-      "layout": "",
-      "content_sources": [],
-      "required_assets": [],
-      "build_notes": "",
-      "status": "pending"
-    }
-  ]
+  "slides": []
 }

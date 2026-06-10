@@ -3,30 +3,42 @@
   "title": "Deck Brief",
   "type": "object",
   "required": [
-    "project_name",
-    "objective",
-    "audience",
-    "decision_required",
-    "deadline",
-    "language",
-    "slide_count_target",
-    "brand_context",
-    "source_materials",
-    "constraints",
-    "references"
+    "brief_status"
   ],
   "properties": {
+    "brief_status": {
+      "type": "string",
+      "enum": ["draft", "enriched", "ready"]
+    },
     "project_name": { "type": "string" },
     "objective": { "type": "string" },
     "audience": { "type": "string" },
     "decision_required": { "type": "string" },
     "deadline": { "type": "string" },
-    "language": { "type": "string" },
+    "language": { "type": "string", "default": "es" },
     "slide_count_target": { "type": "integer", "minimum": 1 },
     "brand_context": { "type": "string" },
     "source_materials": { "type": "array", "items": { "type": "string" } },
     "constraints": { "type": "array", "items": { "type": "string" } },
     "references": { "type": "array", "items": { "type": "string" } }
   },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "brief_status": { "const": "ready" }
+        },
+        "required": ["brief_status"]
+      },
+      "then": {
+        "required": ["objective", "audience", "decision_required"],
+        "properties": {
+          "objective": { "type": "string", "minLength": 1 },
+          "audience": { "type": "string", "minLength": 1 },
+          "decision_required": { "type": "string", "minLength": 1 }
+        }
+      }
+    }
+  ],
   "additionalProperties": true
 }

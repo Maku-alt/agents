@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Deck Workflow State",
+  "type": "object",
+  "required": ["phase", "brief_status", "completed_artifacts", "open_questions", "next_agent"],
+  "properties": {
+    "phase": {
+      "type": "string",
+      "enum": ["exploration", "convergence", "style-discovery", "build", "closing", "review"]
+    },
+    "brief_status": {
+      "type": "string",
+      "enum": ["draft", "enriched", "ready"]
+    },
+    "completed_artifacts": { "type": "array", "items": { "type": "string" } },
+    "open_questions": { "type": "array", "items": { "type": "string" } },
+    "next_agent": {
+      "type": "string",
+      "enum": ["orchestrator", "narrative", "design", "review", "ppt-builder"]
+    }
+  },
+  "additionalProperties": true
+}

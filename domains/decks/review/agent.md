@@ -154,6 +154,7 @@ Each item should include at least:
 - `why_it_matters`
 - `recommended_fix`
 - `owner_agent`
+- `status`
 
 ## Output Format
 

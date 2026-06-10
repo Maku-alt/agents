@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Deck Build Plan",
+  "type": "object",
+  "required": [
+    "build_readiness",
+    "open_gaps",
+    "theme_selected",
+    "closing_strategy",
+    "slides"
+  ],
+  "properties": {
+    "build_readiness": {
+      "type": "string",
+      "enum": ["ready_to_build", "build_with_risks", "blocked"]
+    },
+    "open_gaps": { "type": "array", "items": { "type": "string" } },
+    "theme_selected": { "type": "string" },
+    "closing_strategy": { "type": "string" },
+    "slides": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "slide_number",
+          "layout",
+          "content_sources",
+          "required_assets",
+          "build_notes",
+          "status"
+        ],
+        "properties": {
+          "slide_number": { "type": "integer", "minimum": 1 },
+          "layout": { "type": "string", "minLength": 1 },
+          "content_sources": { "type": "array", "items": { "type": "string" } },
+          "required_assets": { "type": "array", "items": { "type": "string" } },
+          "build_notes": { "type": "string" },
+          "status": {
+            "type": "string",
+            "enum": ["pending", "ready", "blocked", "built"]
+          }
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": true
+}

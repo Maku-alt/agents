@@ -4,9 +4,9 @@ Repositorio transversal para agentes reutilizables de Codex.
 
 ## Principios
 
-- `core/` contiene contratos y convenciones compartidas.
 - `domains/` contiene agentes por dominio.
 - `domains/decks/` es el primer dominio y resuelve la creacion de presentaciones.
+- `domains/sql/` resuelve trabajo analitico SQL/Teradata organizado por casos.
 - Cada agente debe producir artefactos claros, reutilizables y revisables.
 - El repo es la fuente de verdad; luego se copia al runtime o a otros repos segun necesidad.
 
@@ -14,7 +14,6 @@ Repositorio transversal para agentes reutilizables de Codex.
 
 ```text
 agents/
-  core/
   domains/
     decks/
       orchestrator/
@@ -22,9 +21,13 @@ agents/
       design/
       review/
       ppt-builder/
+    sql/
+      orchestrator/
+      sql-analyst/
+      sql-reviewer/
+      documenter/
   schemas/
   templates/
-  scripts/
 ```
 
 ## Flujo del dominio decks
@@ -37,6 +40,8 @@ agents/
 - Las preguntas deben ser minimas y orientadas a destrabar la siguiente salida.
 - Cada agente recibe inputs estructurados y devuelve outputs estructurados.
 - Ningun agente debe saltarse el contrato de salida.
+- Los artefactos JSON se validan con JSON Schema.
+- Los artefactos Markdown respetan las secciones definidas en `schemas/decks/markdown-contracts.md`.
 
 ## Portabilidad
 
@@ -56,3 +61,12 @@ Minimo utilizable en otro repo:
 - `domains/decks/ppt-builder/agent.md`
 - `schemas/decks/`
 - `templates/decks/`
+
+Minimo utilizable del dominio SQL:
+
+- `domains/sql/orchestrator/agent.md`
+- `domains/sql/sql-analyst/agent.md`
+- `domains/sql/sql-reviewer/agent.md`
+- `domains/sql/documenter/agent.md`
+- `domains/sql/README.md`
+- `templates/sql/`

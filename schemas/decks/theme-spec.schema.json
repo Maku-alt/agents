@@ -21,6 +21,17 @@
     "style_family": { "type": "string" },
     "palette": {
       "type": "object",
+      "required": [
+        "primary",
+        "secondary",
+        "accent",
+        "background",
+        "surface",
+        "text",
+        "muted_text",
+        "success_or_positive",
+        "risk_or_tension"
+      ],
       "properties": {
         "primary": { "type": "string" },
         "secondary": { "type": "string" },
@@ -36,6 +47,7 @@
     },
     "typography": {
       "type": "object",
+      "required": ["title", "body", "labels", "numeric"],
       "properties": {
         "title": { "type": "string" },
         "body": { "type": "string" },

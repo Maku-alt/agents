@@ -12,8 +12,7 @@
       "purpose",
       "key_points",
       "evidence_type",
-      "recommended_chart_or_visual",
-      "speaker_notes_optional"
+      "recommended_chart_or_visual"
     ],
     "properties": {
       "slide_number": { "type": "integer", "minimum": 1 },
@@ -27,7 +26,7 @@
         "enum": ["fact", "interpretation", "recommendation"]
       },
       "recommended_chart_or_visual": { "type": "string" },
-      "speaker_notes_optional": { "type": "string" }
+      "speaker_notes_optional": { "type": "string", "minLength": 1 }
     },
     "additionalProperties": true
   }

@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Deck Agent Routing",
+  "type": "object",
+  "required": ["current_phase", "selected_agent", "reason", "required_inputs", "expected_outputs"],
+  "properties": {
+    "current_phase": {
+      "type": "string",
+      "enum": ["exploration", "convergence", "style-discovery", "build", "closing", "review"]
+    },
+    "selected_agent": {
+      "type": "string",
+      "enum": ["narrative", "design", "review", "ppt-builder"]
+    },
+    "reason": { "type": "string", "minLength": 1 },
+    "required_inputs": { "type": "array", "items": { "type": "string" } },
+    "expected_outputs": { "type": "array", "items": { "type": "string" } },
+    "parallelization_safe": { "type": "boolean", "default": false }
+  },
+  "additionalProperties": true
+}

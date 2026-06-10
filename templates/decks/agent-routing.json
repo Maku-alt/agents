@@ -1,0 +1,8 @@
+{
+  "current_phase": "exploration",
+  "selected_agent": "narrative",
+  "reason": "The thesis and storyline still need to be defined.",
+  "required_inputs": ["brief.json"],
+  "expected_outputs": ["storyline.md", "slide-outline.json"],
+  "parallelization_safe": false
+}

@@ -59,6 +59,14 @@ Collect these fields as soon as they become necessary:
 
 If any of these are missing, only ask for the ones needed to choose the next phase and next agent.
 
+Maintain `brief_status` as:
+
+- `draft`: initial intake is incomplete;
+- `enriched`: enough context exists for specialist work, but some decisions remain open;
+- `ready`: objective, audience, and required decision are locked.
+
+Do not fabricate empty values to make a draft brief look complete.
+
 ## Routing Logic
 
 Route to `narrative` when:

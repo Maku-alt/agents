@@ -202,7 +202,9 @@ Each slide entry must include at least:
 - `key_points`
 - `evidence_type`
 - `recommended_chart_or_visual`
-- `speaker_notes_optional`
+
+It may include `speaker_notes_optional` when notes add presentation value.
+Do not emit an empty notes field only to satisfy the output shape.
 
 ## Output Format
 

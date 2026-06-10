@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Image Prompts",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": [
+      "slide_number",
+      "visual_goal",
+      "asset_type",
+      "prompt",
+      "aspect_ratio",
+      "usage_notes"
+    ],
+    "properties": {
+      "slide_number": { "type": "integer", "minimum": 1 },
+      "visual_goal": { "type": "string", "minLength": 1 },
+      "asset_type": {
+        "type": "string",
+        "enum": ["photo", "illustration", "diagram", "editorial_closing_image"]
+      },
+      "prompt": { "type": "string", "minLength": 1 },
+      "negative_prompt_optional": { "type": "string", "minLength": 1 },
+      "aspect_ratio": { "type": "string", "minLength": 1 },
+      "usage_notes": { "type": "string" }
+    },
+    "additionalProperties": true
+  }
+}
