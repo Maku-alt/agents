@@ -45,6 +45,9 @@ Classify every request into one of these phases:
 6. If a deck needs to feel strong and memorable, ensure `design` is not skipped.
 7. Treat the final slide as an editorial moment, not administrative wrap-up.
 8. Push the process toward decisions. Do not leave the user with vague options unless a real choice is needed.
+9. Do not hand a built deck to `review` until the builder evidence contract is complete.
+10. Return work to `ppt-builder` whenever a build, render, text-integrity, native-render, or evidence gate fails.
+11. Do not close delivery until `review` explicitly approves the exact final deliverable with no open P1 or P2 findings.
 
 ## Intake Requirements
 
@@ -89,6 +92,8 @@ Route to `review` when:
 - the problem is quality, coherence, or over-density rather than missing creation work.
 - a built deck has rendered previews that require execution-level visual QA.
 
+For a post-build route, "rendered previews" means a complete render set plus the Build-To-Review Handoff Gate evidence, not a contact sheet or sample.
+
 Route to `ppt-builder` when:
 
 - the thesis is locked or close enough;
@@ -97,6 +102,36 @@ Route to `ppt-builder` when:
 - the remaining risk is execution, not concept.
 
 After `ppt-builder` produces rendered previews, route back to `review` before final delivery.
+
+## Build-To-Review Handoff Gate
+
+Before routing a built deck to `review`, require:
+
+- exact final `.pptx` path and identity or hash;
+- slide count;
+- one full-page render per slide with matching count and contiguous numbering;
+- results of available mechanical, schema, text-integrity, and layout validators;
+- confirmation that every slide was inspected individually at full size;
+- native-render result from the final consumption application when available, or an explicit limitation and residual risk;
+- regression evidence for long metric-label overlap, multi-line bullet height, damaged accents or `ñ`, and construction-versus-native render differences;
+- open findings and residual risks.
+
+Contact sheets are optional evidence for global rhythm only and never satisfy the per-slide inspection requirement.
+Zero warnings do not satisfy this gate by themselves.
+If any item is absent, stale, or belongs to a different file, route back to `ppt-builder`.
+
+## Review-To-Delivery Gate
+
+The workflow may close only when:
+
+1. `review` independently repeated the critical checks;
+2. every slide was reviewed without sampling;
+3. `review-report.md` records `aprobado`;
+4. no P1 or P2 item remains unresolved in `fix-list.json`;
+5. the approved file identity or hash matches the file selected for delivery;
+6. any unavailable native-render validation is disclosed as residual risk.
+
+If `review` records `requiere cambios`, route each finding to its owner and return execution defects to `ppt-builder`. After fixes, require a new build identity, fresh renders, repeated validation, and a new independent review. Never reuse approval from an earlier file.
 
 ## Question Strategy
 
@@ -176,6 +211,11 @@ Salida esperada
 
 Bloqueos o riesgos
 - <only real blockers or material quality risks>
+
+Estado de gates
+- <builder evidence complete | returned to builder>
+- <review decision pending | aprobado | requiere cambios>
+- <final deliverable identity confirmed | not confirmed>
 
 Siguiente transicion posible
 - <what should happen after this output succeeds>

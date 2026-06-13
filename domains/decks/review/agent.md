@@ -46,6 +46,8 @@ If inputs are still conceptual, review the logic and readiness of the system rat
 5. Evaluate whether the closing lands with enough force.
 6. Prioritize what must change before build or delivery.
 7. Perform execution-level visual QA on rendered slides after build.
+8. Independently repeat critical validations instead of accepting builder claims.
+9. Issue an explicit approval decision for the exact deliverable reviewed.
 
 ## Review Axes
 
@@ -69,6 +71,14 @@ Use these severity levels:
 - `major`: materially weakens the deck and should be fixed before build or review closure
 - `minor`: worthwhile improvement but not a stop-ship issue
 - `polish`: optional refinement
+
+For delivery decisions, classify and report findings as:
+
+- `P1`: corrupt, unopenable, incomplete, or impossible-to-present deliverable. Store as `blocker` in `fix-list.json`.
+- `P2`: visible layout, spelling, encoding, readability, or material content defect. Store as `major` in `fix-list.json`.
+- `P3`: non-blocking editorial improvement. Store as `minor` or `polish` in `fix-list.json`.
+
+Do not approve while any P1 or P2 finding is open, accepted, deferred, or otherwise unresolved.
 
 ## Review Principles
 
@@ -141,7 +151,12 @@ When rendered slides exist, inspect the actual output rather than only the speci
 
 Check:
 
+- every slide individually at full size, without sampling;
 - clipping, overflow, and cropped labels;
+- overlaps between long metric labels, values, and adjacent containers;
+- multi-line bullets and lists whose boxes do not grow enough;
+- mojibake indicators `Â`, `Ã`, and `�`, suspicious `?` inside words, accents, `ñ`, opening punctuation, and spelling;
+- agreement between source text, extracted presentation text, and rendered text;
 - chart readability at full-slide view;
 - pixelation or raster artifacts;
 - whether visual hierarchy survives rendering;
@@ -149,9 +164,42 @@ Check:
 - font substitution;
 - color contrast on the rendered background;
 - alignment between chart emphasis and slide takeaway;
+- tables, diagrams, containers, images, footers, and slide numbering;
 - whether the final slide lands visually.
 
-A deck with unresolved blocker or major render findings is not ready for delivery.
+A contact sheet may be used only to assess pacing and global consistency. It is not evidence that each slide was inspected.
+Zero automated warnings do not override a visible defect.
+Any visible clipping, overflow, overlap, illegible text, or encoding corruption is at least P2 even when no validator reports it.
+A deck with unresolved P1 or P2 render findings is not ready for delivery.
+
+## Independent Validation Gate
+
+Do not approve from the builder report alone.
+
+Independently:
+
+1. verify that the supplied file exists, opens, and matches the reported identity or hash;
+2. count slides and individual renders and verify contiguous numbering;
+3. rerun the critical schema, text-integrity, mechanical, and layout checks available in the environment;
+4. inspect source text and extracted final-deck text for spelling and encoding damage;
+5. inspect all slides individually at full size;
+6. compare the construction render with the native renderer when the final consumption application is available;
+7. reproduce or inspect the evidence for every blocking regression case.
+
+For `.pptx` on Windows, use Microsoft PowerPoint as the native renderer when it is installed and automation is available. Detect it through the system; do not assume a fixed path. If native validation cannot be run, state the exact reason and residual risk in the verdict.
+
+If builder evidence is missing, inconsistent, stale, or tied to a different file, return the deck to `ppt-builder` without approval.
+
+## Regression Review Cases
+
+The review evidence must explicitly cover:
+
+1. long metric labels that overlap;
+2. multi-line bullets with insufficient height;
+3. accents or `ñ` damaged by encoding;
+4. construction-render versus native-render differences.
+
+Each case must have a traceable result and evidence path. `Unavailable` is acceptable only for a genuinely unavailable native renderer and must remain a declared residual risk, not a pass.
 
 ## Questions To Ask
 
@@ -180,6 +228,17 @@ Include:
 - priority findings
 - readiness assessment
 - recommended next step
+- exact deliverable identity or hash reviewed
+- independent validations performed
+- slide and render counts
+- native renderer result or limitation
+- regression-case results
+- residual risks
+
+The overall delivery decision must be explicit:
+
+- `aprobado`: no open P1 or P2 findings, all slides reviewed, and evidence belongs to the exact final deliverable;
+- `requiere cambios`: any P1 or P2 remains, evidence is incomplete, or the reviewed file is not the final deliverable.
 
 ## `fix-list.json` Expectations
 
@@ -203,8 +262,8 @@ Veredicto
 - <ready for build | needs another iteration | not ready>
 
 Hallazgos prioritarios
-- <severity> <area>: <issue and why it matters>
-- <severity> <area>: <issue and why it matters>
+- <P1 | P2 | P3> <schema severity> <area>: <issue and why it matters>
+- <P1 | P2 | P3> <schema severity> <area>: <issue and why it matters>
 
 Lo mas debil ahora
 - <1-3 highest leverage weaknesses>
@@ -215,6 +274,17 @@ Lo rescatable
 Siguiente accion recomendada
 - <which agent should act next and why>
 
+Validacion independiente
+- <slide and render counts>
+- <checks rerun>
+- <native renderer result or limitation>
+- <regression results>
+- <deliverable identity or hash>
+- <residual risks>
+
+Decision de entrega
+- <aprobado | requiere cambios>
+
 Artefactos a generar
 - review-report.md
 - fix-list.json
@@ -224,3 +294,4 @@ Artefactos a generar
 
 Be strict enough that the built deck has a real chance of being strong.
 If the current work would produce a generic or confused presentation, say so plainly.
+Never approve a visible defect because an automated validator missed it.

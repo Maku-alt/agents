@@ -49,6 +49,8 @@ If `image-prompts.json` exists but the corresponding assets have not yet been ge
 8. Consume assets generated through `@imagegen` when they are part of the approved visual plan.
 9. Build data visualizations according to `data-viz-spec.json`, preserving editability whenever practical.
 10. Render the built slides for visual QA before declaring the deck final.
+11. Preserve UTF-8 text from source artifacts through the final presentation.
+12. Produce complete, reproducible build and QA evidence for the reviewer.
 
 ## Non-Goals
 
@@ -71,6 +73,33 @@ Before building, verify:
 - no unresolved blocker in `fix-list.json` would invalidate the build.
 
 If any of these fail, produce a build readiness warning before proceeding.
+
+## Tool Discovery And Validation Order
+
+Use the capabilities already available in the repository and execution environment before considering any installation.
+
+1. Inspect repository schemas, templates, scripts, and documented commands.
+2. Use the active presentation-generation and rendering capability that produces the editable deliverable.
+3. Run every mechanical validator and layout checker available for that capability.
+4. When the final consumption application is available, also render or export with its native renderer.
+
+For `.pptx` on Windows, detect Microsoft PowerPoint through the system rather than assuming a hard-coded executable path. If PowerPoint is available, use it for native open/export validation in addition to the construction renderer. If it is unavailable or automation is blocked, record the exact limitation and residual risk. Do not install LibreOffice, PowerPoint, image utilities, or other tooling only to satisfy this gate without an explicit need and authorization.
+
+Repository JSON artifacts must continue to validate against the schemas in `schemas/decks/`. Additional QA evidence may be stored in schema-compatible additional properties of `deck-build-plan.json` or in `deck-package/`.
+
+## Text Integrity Gate
+
+Work in UTF-8 for source artifacts, generated code, manifests, and QA reports.
+
+Before handoff:
+
+1. inspect source text and extracted text from `final-deck.pptx`, not only the source files;
+2. review accents, `ñ`, opening punctuation (`¿`, `¡`), spelling, and language consistency;
+3. search case-sensitively for mojibake indicators `Â`, `Ã`, and `�`;
+4. search for suspicious `?` characters inserted inside words and distinguish them from legitimate closing question marks;
+5. compare slide titles, metrics, labels, bullets, tables, diagrams, footers, and numbering with their source artifacts.
+
+Any unexplained encoding damage or material text mismatch blocks handoff.
 
 ## Slide Construction Standard
 
@@ -230,17 +259,66 @@ Should contain the material required to reproduce or revise the deck cleanly, su
 - export notes
 - unresolved placeholders if any remain
 
+It must also contain or reference the handoff evidence required by the quality gates below.
+
 ## Render Review Gate
 
 Before final delivery:
 
-1. render every slide to PNG or PDF;
-2. inspect for clipping, overflow, weak hierarchy, inconsistent spacing, and chart quality;
-3. send the rendered set to `review`;
-4. resolve all blocker and major execution findings;
-5. rebuild and rerender affected slides.
+1. run the available mechanical, schema, and layout validators and retain their outputs;
+2. render every slide to an individual PNG or equivalent full-page image;
+3. verify that the render count equals the slide count and that numbering is contiguous;
+4. inspect every slide individually at full size, without sampling;
+5. inspect titles, metrics and long labels, wrapped lists, tables, diagrams, containers, images, footers, and slide numbers;
+6. check clipping, overflow, overlap, illegible text, weak hierarchy, inconsistent spacing, font substitution, contrast, and chart quality;
+7. use a contact sheet only as a secondary view for pacing, density, and global consistency;
+8. when available, repeat rendering with the native consumption application and compare the outputs;
+9. send the complete evidence set to `review`;
+10. resolve all P1 and P2 execution findings;
+11. rebuild and rerender every affected slide, then repeat the relevant checks.
 
 Do not mark the deck final based only on successful file generation.
+Zero validator warnings do not mean zero visual defects.
+A contact sheet never substitutes for full-size inspection of each slide.
+
+## Blocking Regression Cases
+
+Before handoff, exercise these cases through the actual build, render, and inspection path. Reuse an existing test or fixture mechanism when one exists; otherwise create temporary QA slides or fixtures inside `deck-package/` and keep the evidence.
+
+1. Long metric labels that would overlap adjacent metrics or containers.
+2. Multi-line bullets whose text box has insufficient height.
+3. Accented characters or `ñ` damaged by an encoding round trip.
+4. A slide whose construction render differs from the native renderer in line wrapping, fonts, object placement, or clipping.
+
+For each case, record:
+
+- input or fixture;
+- renderer or validator used;
+- expected failure signal;
+- observed result;
+- pass, fail, or unavailable;
+- evidence path.
+
+A regression case fails if the defect remains visible, passes silently without a documented reason, or cannot be traced to evidence. An unavailable native-renderer case must be declared as a limitation and residual risk; it cannot be reported as passed.
+
+## Handoff Evidence Contract
+
+The handoff to `review` is blocked unless it includes:
+
+- exact path and identity of `final-deck.pptx`;
+- slide count;
+- paths to all individual renders;
+- render count and contiguous numbering check;
+- construction renderer and version or capability used;
+- native renderer used and comparison result, or explicit unavailability;
+- mechanical, schema, text-integrity, and layout validations run with results;
+- confirmation that every slide was inspected individually at full size;
+- contact sheet path, if generated, identified as a global-only aid;
+- regression-case results;
+- resolved and open findings;
+- residual risks.
+
+Use a hash when available so the orchestrator and reviewer can confirm that the reviewed file is exactly the final deliverable.
 
 ## Output Format
 
@@ -268,6 +346,15 @@ Artefactos a generar
 - deck-package/
 - rendered-slides/
 - final-deck.pptx
+
+Evidencia de QA
+- <slide count and render count>
+- <validators and results>
+- <full-size per-slide inspection confirmation>
+- <native renderer result or limitation>
+- <regression results>
+- <deliverable identity or hash>
+- <residual risks>
 ```
 
 ## Decision Standard
