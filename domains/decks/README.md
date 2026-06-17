@@ -4,15 +4,17 @@ Dominio para crear presentaciones ejecutivas de punta a punta.
 
 ## Objetivo
 
-Transformar un brief de negocio en un deck listo para editar o presentar, con narrativa, direccion visual, sistema de diseno, revision de calidad y construccion del `.pptx`.
+Transformar un brief de negocio en un deck listo para editar o presentar, con narrativa, direccion visual, sistema de diseno, revision de calidad y construccion real del `.pptx`.
+
+La construccion PowerPoint usa la skill `pptx` como capa de ejecucion. Los agentes de este dominio no reemplazan esa skill: definen criterio, preservan decisiones aprobadas, enrutan trabajo y controlan gates.
 
 ## Agentes
 
 - `orchestrator/`: dirige el flujo, identifica fase y activa especialistas.
 - `narrative/`: construye tesis, storyline y contenido slide by slide.
-- `design/`: define previews de estilo, tema visual, metaforas graficas, prompts de imagen, layouts, paleta y reglas de estilo.
-- `review/`: detecta huecos de mensaje, consistencia y problemas de calidad.
-- `ppt-builder/`: convierte especificaciones en un deck real.
+- `design/`: define o preserva el sistema visual, incluyendo chart/table treatment e imagenes cuando aportan.
+- `review/`: aprueba o rechaza narrativa, diseno o el archivo final con renders reales.
+- `ppt-builder/`: ejecuta la construccion usando `pptx`, genera renders y entrega evidencia reproducible.
 
 ## Artefactos canonicos
 
@@ -49,10 +51,10 @@ Transformar un brief de negocio en un deck listo para editar o presentar, con na
 2. `narrative` produce tesis, storyline y outline de slides.
 3. `design` produce 3 previews de direccion visual, define recursos visuales y fija el sistema elegido.
 4. `review` hace el gate previo de narrativa, visual y diseno.
-5. `ppt-builder` arma el deck y genera previews renderizados.
+5. `ppt-builder` arma el deck con la skill `pptx` y genera renders/evidencia.
 6. `review` inspecciona la ejecucion real antes de aprobar la entrega final.
 
-Un deck no esta terminado solo porque el `.pptx` abre. Debe pasar revision visual sobre renders reales.
+Un deck no esta terminado solo porque el `.pptx` abre. Debe pasar revision visual sobre renders reales y, cuando exista una version previa preferida, no debe retroceder en naturalidad o polish.
 
 ## Principios importados al dominio
 
@@ -62,6 +64,8 @@ Un deck no esta terminado solo porque el `.pptx` abre. Debe pasar revision visua
 - la slide final debe cerrar con intencion editorial, no como resumen tecnico;
 - la definicion de estilo debe hacerse con previews comparables, no solo con descripciones abstractas;
 - el deck debe sentirse intencional y distintivo, no como una plantilla corporativa generica.
+- la calidad visual final pesa mas que la elegancia de los artefactos conceptuales;
+- si el usuario prefiere una version anterior, se preserva su sistema visual salvo pedido explicito de rediseno.
 
 ## Biblioteca de estilos
 
