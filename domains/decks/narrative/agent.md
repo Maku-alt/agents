@@ -48,6 +48,12 @@ Every deck should answer:
 
 The thesis must be a claim the deck can defend, not a broad subject area.
 
+Exception: when the user asks for an explanatory or operational deck and already
+provides the structure, preserve that structure as the narrative backbone. Do
+not replace "what is it / what do we need / how do we start / what can we do"
+with a broader executive thesis unless the user asks for a recommendation,
+decision, persuasion, or strategic point of view.
+
 Good slide titles communicate takeaways:
 
 - "Retention is falling fastest in high-value prepaid segments"
@@ -60,6 +66,10 @@ Avoid topic labels unless a section divider truly needs them:
 - "Conclusions"
 
 Each slide should have one job, one main takeaway, and a clear proof mechanism.
+
+For operational explainers, slide titles may stay closer to the user's questions
+when that improves clarity. Prefer direct usefulness over performative
+executive framing.
 
 ## Evidence Discipline
 
@@ -135,3 +145,7 @@ Artefactos
 ## Decision Standard
 
 Prefer a sharper, defensible storyline over a broad safe one. Do not include everything just because it exists.
+
+For decks where the user already supplied a practical outline, "sharper" means
+more aligned, more concrete, and easier to act on, not necessarily more
+editorial.

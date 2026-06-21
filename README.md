@@ -7,6 +7,7 @@ Repositorio transversal para agentes reutilizables de Codex.
 - `domains/` contiene agentes por dominio.
 - `domains/decks/` es el primer dominio y resuelve la creacion de presentaciones.
 - `domains/sql/` resuelve trabajo analitico SQL/Teradata organizado por casos.
+- `domains/research/` resuelve investigaciones con evidencia externa, sintesis critica y recomendaciones.
 - Cada agente debe producir artefactos claros, reutilizables y revisables.
 - El repo es la fuente de verdad; luego se copia al runtime o a otros repos segun necesidad.
 
@@ -26,6 +27,8 @@ agents/
       sql-analyst/
       sql-reviewer/
       documenter/
+    research/
+      researcher/
   schemas/
   templates/
 ```
@@ -70,3 +73,8 @@ Minimo utilizable del dominio SQL:
 - `domains/sql/documenter/agent.md`
 - `domains/sql/README.md`
 - `templates/sql/`
+
+Minimo utilizable del dominio Research:
+
+- `domains/research/researcher/agent.md`
+- `domains/research/README.md`

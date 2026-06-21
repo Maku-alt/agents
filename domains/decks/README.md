@@ -56,6 +56,27 @@ La construccion PowerPoint usa la skill `pptx` como capa de ejecucion. Los agent
 
 Un deck no esta terminado solo porque el `.pptx` abre. Debe pasar revision visual sobre renders reales y, cuando exista una version previa preferida, no debe retroceder en naturalidad o polish.
 
+## Uso proporcional de agentes
+
+No todos los pedidos de slides necesitan el flujo completo de agentes. Si el
+usuario ya trae research, contenido listo o una estructura operativa clara, y el
+deck es corto o explicativo, puede ser mejor construir directamente con la skill
+`pptx` y aplicar solo revision final.
+
+Usa el flujo completo de agentes cuando agregue criterio real:
+
+- presentaciones ejecutivas con decision, persuasion o audiencia sensible;
+- decks largos o con storyline incierto;
+- contenido tecnico duro que necesita jerarquia narrativa;
+- redisenos donde el sistema visual todavia no esta decidido;
+- trabajos donde el riesgo principal no es construir el archivo, sino decidir
+  que debe decir y como debe leerse.
+
+Para decks simples del tipo "explicame X en N slides", "que es / que necesito /
+como empiezo / que puedo hacer", o cuando el usuario ya definio el contenido,
+preserva esa estructura y evita convertirla en una tesis ejecutiva salvo pedido
+explicito.
+
 ## Principios importados al dominio
 
 - toda deck parte de una tesis, no de un tema suelto;
@@ -66,6 +87,9 @@ Un deck no esta terminado solo porque el `.pptx` abre. Debe pasar revision visua
 - el deck debe sentirse intencional y distintivo, no como una plantilla corporativa generica.
 - la calidad visual final pesa mas que la elegancia de los artefactos conceptuales;
 - si el usuario prefiere una version anterior, se preserva su sistema visual salvo pedido explicito de rediseno.
+- cuando el encargo ya trae una estructura de preguntas operativas, esa
+  estructura es el backbone del deck y no debe reemplazarse por una narrativa
+  ejecutiva sin razon.
 
 ## Biblioteca de estilos
 
@@ -77,3 +101,9 @@ Uso recomendado:
 - traducir cada preset a reglas de PPT: paleta, tipografia, layouts, tablas, charts y cierre;
 - evitar aplicar presets muy teatrales si la audiencia no lo tolera;
 - conservar siempre una opcion editorial segura, una opcion mas audaz y una wildcard defendible.
+
+## Pendientes
+
+- Ejecutar un ejercicio comparativo mas con el flujo actualizado: mismo brief,
+  una version con agentes y una version directa con `pptx`, midiendo alineacion
+  al encargo, calidad visual, costo de contexto y tiempo de ejecucion.

@@ -28,6 +28,17 @@ Route to `narrative` when the bottleneck is the argument: weak thesis, unclear d
 
 Route to `design` when the bottleneck is visual judgment: no chosen system, generic style risk, unclear chart/table treatment, image strategy, closing-slide art direction, or a prior preferred deck that must be preserved.
 
+If the user already provides research, content, or a clear operational structure
+such as "what it is / what we need / how to start / what we can do", do not route
+the work into a full executive storyline by default. Preserve that structure as
+the deck backbone unless the user asks for persuasion, a recommendation, or a
+decision narrative.
+
+For short explanatory decks with stable content and low narrative ambiguity,
+route directly to `ppt-builder` using the installed `pptx` skill, then require
+post-build review. Use `narrative` only if the content is scattered, too dense,
+unsupported, or the slide order is genuinely unclear.
+
 Route to `ppt-builder` only when:
 
 - the thesis and slide order are stable enough;
@@ -121,3 +132,6 @@ Gates
 ## Decision Standard
 
 Choose the smallest next step that materially improves the deck. Do not add process that does not improve the final presentation.
+
+When the request is primarily explanatory, the smallest useful step may be a
+direct `pptx` build with strong QA rather than a full agent cascade.
