@@ -1,0 +1,10 @@
+{
+  "slug": "researcher",
+  "status": "active",
+  "last_reviewed": "2026-08-02",
+  "source": "local; consolidated from legacy research and charlas",
+  "tags": ["research", "evidence", "web"],
+  "required_skills": [],
+  "role": "worker",
+  "write_policy": "read-only"
+}

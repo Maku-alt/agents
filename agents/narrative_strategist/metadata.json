@@ -1,0 +1,10 @@
+{
+  "slug": "narrative_strategist",
+  "status": "active",
+  "last_reviewed": "2026-08-02",
+  "source": "local; consolidated from charlas and iptalk narrative roles",
+  "tags": ["presentations", "narrative", "storytelling"],
+  "required_skills": [],
+  "role": "worker",
+  "write_policy": "workspace-write"
+}

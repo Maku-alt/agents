@@ -1,0 +1,10 @@
+{
+  "slug": "experience_reviewer",
+  "status": "active",
+  "last_reviewed": "2026-08-02",
+  "source": "charlas/review and iptalk review",
+  "tags": ["presentations", "review", "qa", "accessibility"],
+  "required_skills": [],
+  "role": "worker",
+  "write_policy": "read-only"
+}

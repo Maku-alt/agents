@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "source_of_truth": "agents/<slug>/agent.toml",
+  "runtime_targets": [
+    "~/.codex/agents",
+    "<project>/.codex/agents"
+  ],
+  "required_package_files": [
+    "agent.toml",
+    "metadata.json",
+    "instructions.md"
+  ],
+  "allowed_statuses": [
+    "active",
+    "experimental",
+    "archived"
+  ],
+  "name_pattern": "^[a-z][a-z0-9_]*$",
+  "default_install_statuses": [
+    "active"
+  ],
+  "prune_by_default": false
+}

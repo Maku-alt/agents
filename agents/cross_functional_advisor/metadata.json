@@ -1,0 +1,10 @@
+{
+  "slug": "cross_functional_advisor",
+  "status": "active",
+  "last_reviewed": "2026-08-02",
+  "source": "charlas/advisor",
+  "tags": ["advisory", "architecture", "tradeoffs"],
+  "required_skills": [],
+  "role": "worker",
+  "write_policy": "read-only"
+}

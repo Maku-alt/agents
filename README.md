@@ -1,80 +1,83 @@
-# Agents Repo
+# Agents Registry
 
-Repositorio transversal para agentes reutilizables de Codex.
+Repositorio fuente de verdad para agentes personalizados reutilizables de Codex.
 
-## Principios
+## Modelo vigente
 
-- `domains/` contiene agentes por dominio.
-- `domains/decks/` es el primer dominio y resuelve la creacion de presentaciones.
-- `domains/sql/` resuelve trabajo analitico SQL/Teradata organizado por casos.
-- `domains/research/` resuelve investigaciones con evidencia externa, sintesis critica y recomendaciones.
-- Cada agente debe producir artefactos claros, reutilizables y revisables.
-- El repo es la fuente de verdad; luego se copia al runtime o a otros repos segun necesidad.
+Codex carga agentes personalizados desde archivos TOML independientes:
 
-## Estructura
+- `~/.codex/agents/*.toml` para agentes personales disponibles entre proyectos;
+- `.codex/agents/*.toml` para agentes propios de un proyecto.
 
-```text
-agents/
-  domains/
-    decks/
-      orchestrator/
-      narrative/
-      design/
-      review/
-      ppt-builder/
-    sql/
-      orchestrator/
-      sql-analyst/
-      sql-reviewer/
-      documenter/
-    research/
-      researcher/
-  schemas/
-  templates/
+`agents/openai.yaml` no configura el comportamiento de un custom agent: es metadata de interfaz para skills y plugins. Los contratos Markdown siguen siendo utiles como documentacion, pero la configuracion ejecutable de un subagente es TOML.
+
+Este repositorio sigue el mismo principio de `skills-registry`:
+
+- `agents/`: paquetes activos y curados;
+- `catalog/`: diccionario humano e indice generado;
+- `archive/`: configuraciones retiradas que conservamos por trazabilidad;
+- `config/`: politica del catalogo;
+- `scripts/`: validacion y generacion del indice;
+- `sync-to-codex.ps1`: instalacion explicita en el runtime personal.
+
+## Arquitectura de trabajo
+
+El chat principal es el orquestador. Conserva objetivo, decisiones, estado, handoffs e integracion final. Los agentes de este catalogo son workers especializados; no sustituyen al hilo principal ni deciden por su cuenta la siguiente fase.
+
+Set activo:
+
+| Agente | Uso principal |
+| --- | --- |
+| `researcher` | Investigar preguntas abiertas con evidencia, contradicciones y trazabilidad. |
+| `narrative_strategist` | Convertir evidencia aprobada en tesis, arco y contrato de contenido para una presentacion. |
+| `experience_designer_builder` | Disenar y construir presentaciones HTML con `impeccable`. |
+| `experience_reviewer` | Revisar de forma independiente el candidato web exacto y su evidencia. |
+| `cross_functional_advisor` | Analizar tradeoffs complejos sin ejecutar ni aprobar fases. |
+
+`experience_designer_builder` reemplaza la antigua cascada `design -> ppt-builder` para Web Talks. Si el usuario pide explicitamente PowerPoint, el hilo principal usa la skill `pptx` directamente; `impeccable` no es un builder de `.pptx`.
+
+## Sincronizar con Codex
+
+Vista previa:
+
+```powershell
+.\sync-to-codex.ps1 -WhatIf
 ```
 
-## Flujo del dominio decks
+Instalacion global:
 
-`brief -> orchestrator -> narrative -> design -> review -> ppt-builder`
+```powershell
+.\sync-to-codex.ps1
+```
 
-## Reglas del dominio decks
+Instalar solo algunos agentes:
 
-- Los agentes deben hacer preguntas cuando falte contexto critico.
-- Las preguntas deben ser minimas y orientadas a destrabar la siguiente salida.
-- Cada agente recibe inputs estructurados y devuelve outputs estructurados.
-- Ningun agente debe saltarse el contrato de salida.
-- Los artefactos JSON se validan con JSON Schema.
-- Los artefactos Markdown respetan las secciones definidas en `schemas/decks/markdown-contracts.md`.
+```powershell
+.\sync-to-codex.ps1 -Names researcher,experience_reviewer
+```
 
-## Portabilidad
+Instalar en un proyecto:
 
-Para reutilizar este dominio en otro repo:
+```powershell
+.\sync-to-codex.ps1 -Destination C:\ruta\proyecto\.codex\agents
+```
 
-1. Copia `domains/decks/`.
-2. Copia `schemas/decks/` y `schemas/decks-artifacts.md`.
-3. Copia `templates/decks/`.
-4. Conserva la misma estructura relativa para no romper referencias.
+La sincronizacion no elimina agentes extra del destino salvo que se indique `-Prune`. La fuente permanente es este repo, no la copia runtime.
 
-Minimo utilizable en otro repo:
+## Validacion
 
-- `domains/decks/orchestrator/agent.md`
-- `domains/decks/narrative/agent.md`
-- `domains/decks/design/agent.md`
-- `domains/decks/review/agent.md`
-- `domains/decks/ppt-builder/agent.md`
-- `schemas/decks/`
-- `templates/decks/`
+```powershell
+python .\scripts\build_registry.py --check
+.\sync-to-codex.ps1 -WhatIf
+git diff --check
+```
 
-Minimo utilizable del dominio SQL:
+Para regenerar `catalog/agents-index.json` y `catalog/agents-dictionary.md`:
 
-- `domains/sql/orchestrator/agent.md`
-- `domains/sql/sql-analyst/agent.md`
-- `domains/sql/sql-reviewer/agent.md`
-- `domains/sql/documenter/agent.md`
-- `domains/sql/README.md`
-- `templates/sql/`
+```powershell
+python .\scripts\build_registry.py
+```
 
-Minimo utilizable del dominio Research:
+## Legado
 
-- `domains/research/researcher/agent.md`
-- `domains/research/README.md`
+La arquitectura anterior por dominios, incluidos SQL, schemas y templates de decks, se conserva en `archive/legacy-domains-v1/`. No forma parte del set instalable y puede consultarse al reabrir un flujo historico.

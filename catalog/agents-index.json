@@ -1,0 +1,105 @@
+{
+  "schema_version": 1,
+  "agents": [
+    {
+      "slug": "cross_functional_advisor",
+      "name": "cross_functional_advisor",
+      "description": "Analiza tradeoffs transversales complejos y recomienda una decision con evidencia y consecuencias.",
+      "status": "active",
+      "last_reviewed": "2026-08-02",
+      "source": "charlas/advisor",
+      "tags": [
+        "advisory",
+        "architecture",
+        "tradeoffs"
+      ],
+      "required_skills": [],
+      "role": "worker",
+      "sandbox_mode": "read-only",
+      "write_policy": "read-only",
+      "agent_sha256": "04e50b4479ff29f4389003d44328ce8c281dd71bb8851ebaa837847967d57277",
+      "package_path": "agents/cross_functional_advisor"
+    },
+    {
+      "slug": "experience_designer_builder",
+      "name": "experience_designer_builder",
+      "description": "Diseña y construye presentaciones HTML autocontenidas con Impeccable, incluyendo visuales, interaccion, renders y QA.",
+      "status": "active",
+      "last_reviewed": "2026-08-02",
+      "source": "charlas/experience-designer-builder and iptalk",
+      "tags": [
+        "presentations",
+        "html",
+        "frontend",
+        "design",
+        "build"
+      ],
+      "required_skills": [
+        "impeccable"
+      ],
+      "role": "worker",
+      "sandbox_mode": "workspace-write",
+      "write_policy": "workspace-write",
+      "agent_sha256": "6faba972af28414d398273618d7d2b9267951e8c4c01ad5d1de989930c76ea5a",
+      "package_path": "agents/experience_designer_builder"
+    },
+    {
+      "slug": "experience_reviewer",
+      "name": "experience_reviewer",
+      "description": "Revisa de forma independiente una presentacion HTML exacta, sus renders, runtime, accesibilidad y evidencia.",
+      "status": "active",
+      "last_reviewed": "2026-08-02",
+      "source": "charlas/review and iptalk review",
+      "tags": [
+        "presentations",
+        "review",
+        "qa",
+        "accessibility"
+      ],
+      "required_skills": [],
+      "role": "worker",
+      "sandbox_mode": "read-only",
+      "write_policy": "read-only",
+      "agent_sha256": "b39d30b1243e408b77b3864970fbe3dad03907f1a3f8f84047bf7013a6d6fcbf",
+      "package_path": "agents/experience_reviewer"
+    },
+    {
+      "slug": "narrative_strategist",
+      "name": "narrative_strategist",
+      "description": "Convierte tesis y evidencia aprobadas en un arco presentable, momentos claros y contrato de contenido.",
+      "status": "active",
+      "last_reviewed": "2026-08-02",
+      "source": "local; consolidated from charlas and iptalk narrative roles",
+      "tags": [
+        "presentations",
+        "narrative",
+        "storytelling"
+      ],
+      "required_skills": [],
+      "role": "worker",
+      "sandbox_mode": "workspace-write",
+      "write_policy": "workspace-write",
+      "agent_sha256": "788a18819c29cdbe38ee7ab38df80e549faeff09c3ce46a9e94d5c5e8568b01e",
+      "package_path": "agents/narrative_strategist"
+    },
+    {
+      "slug": "researcher",
+      "name": "researcher",
+      "description": "Investiga preguntas abiertas con fuentes confiables, contradicciones explicitas y conclusiones calibradas.",
+      "status": "active",
+      "last_reviewed": "2026-08-02",
+      "source": "local; consolidated from legacy research and charlas",
+      "tags": [
+        "research",
+        "evidence",
+        "web"
+      ],
+      "required_skills": [],
+      "role": "worker",
+      "sandbox_mode": "read-only",
+      "write_policy": "read-only",
+      "agent_sha256": "a94eb9e998a8d7e52edb694f1d4d842f025fa492ede490e4e12ab4771fdab1f1",
+      "package_path": "agents/researcher"
+    }
+  ]
+}
